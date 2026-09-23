@@ -1,0 +1,53 @@
+{
+  "$comment": "v0.1 genre enum. Widen only alongside content that uses the new value (see docs/maintain/authoring.md); must stay equal to schemas/defs.schema.json#/$defs/genre. delivery decides where a convention practice for this genre is rendered: 'core' means it can appear in core/*.md (because the genre is written without reading a file), 'skill' means it belongs in a plugins/writing-compass skill's generated references.",
+  "genres": [
+    {
+      "id": "chat-answer",
+      "name": { "ja": "チャット回答", "en": "Chat answer" },
+      "primary_tasks": ["decide", "act", "understand"],
+      "readers": { "ja": "依頼した本人", "en": "The person who asked" },
+      "parsed_by": [],
+      "delivery": "core"
+    },
+    {
+      "id": "commit-message",
+      "name": { "ja": "コミットメッセージ", "en": "Commit message" },
+      "primary_tasks": ["lookup", "verify"],
+      "readers": { "ja": "git log/blame で経緯を探す将来の保守者とレビュアー", "en": "Future maintainers and reviewers searching git log/blame" },
+      "parsed_by": ["git", "GitHub"],
+      "delivery": "core"
+    },
+    {
+      "id": "pr-description",
+      "name": { "ja": "PR本文", "en": "PR description" },
+      "primary_tasks": ["decide", "verify"],
+      "readers": { "ja": "レビュアーと将来の読者", "en": "Reviewers and future readers" },
+      "parsed_by": ["GitHub"],
+      "delivery": "core"
+    },
+    {
+      "id": "readme",
+      "name": { "ja": "README", "en": "README" },
+      "primary_tasks": ["decide", "act", "lookup"],
+      "readers": { "ja": "使うかどうかを判断し、動かしてみる読者", "en": "A reader deciding whether to use the project, then running it" },
+      "parsed_by": ["GitHub"],
+      "delivery": "skill"
+    },
+    {
+      "id": "design-doc",
+      "name": { "ja": "設計文書/ADR", "en": "Design doc / ADR" },
+      "primary_tasks": ["decide", "verify"],
+      "readers": { "ja": "意思決定者、レビュアー、将来の開発者", "en": "Decision-makers, reviewers, future developers" },
+      "parsed_by": [],
+      "delivery": "skill"
+    },
+    {
+      "id": "report",
+      "name": { "ja": "調査レポート", "en": "Report" },
+      "primary_tasks": ["decide", "understand", "verify"],
+      "readers": { "ja": "結論を受けて判断する読者", "en": "A reader who will act on the conclusion" },
+      "parsed_by": [],
+      "delivery": "skill"
+    }
+  ]
+}

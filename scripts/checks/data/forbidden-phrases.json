@@ -1,0 +1,31 @@
+{
+  "groups": [
+    {
+      "id": "history",
+      "scope": ["practices/**", "templates/**", "core/**", "plugins/**/SKILL.md", "AGENTS.md", "CLAUDE.md"],
+      "patterns": [
+        "\\b(we|this repository|it)\\s+used to\\b",
+        "\\bformerly\\b",
+        "\\bdeprecated in favor of\\b",
+        "\\bwas changed to\\b",
+        "以前は",
+        "かつては",
+        "に変わった"
+      ],
+      "excludeIfMatches": ["\\b(is|are|was|were)\\s+used to\\b"]
+    },
+    {
+      "id": "single-canon",
+      "scope": ["templates/**", "core/**", "plugins/**/SKILL.md"],
+      "patterns": [
+        "^#+\\s*.*Conflicting",
+        "on (the|one) other hand",
+        "some (argue|say|believe|prefer)",
+        "opinions? (differ|vary)",
+        "両論併記",
+        "意見が分かれる"
+      ],
+      "excludeIfMatches": []
+    }
+  ]
+}

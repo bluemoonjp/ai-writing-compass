@@ -1,0 +1,5 @@
+{
+  "checks": [
+    { "id": "sample-check", "blocking": true, "enforces": ["practices/0001"], "protects": "Sample." }
+  ]
+}

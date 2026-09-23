@@ -1,0 +1,8 @@
+---
+name: fire-en
+description: Sample fire case in English.
+tags: [sample-skill, fire, en]
+runs: 1
+---
+
+Sample request text.

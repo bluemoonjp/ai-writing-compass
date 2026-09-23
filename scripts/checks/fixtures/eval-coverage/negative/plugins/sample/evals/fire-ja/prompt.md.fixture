@@ -1,0 +1,8 @@
+---
+name: fire-ja
+description: Sample fire case in Japanese.
+tags: [sample-skill, fire, ja]
+runs: 1
+---
+
+サンプル依頼文。

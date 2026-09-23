@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "guard-rule.schema.json",
+  "description": "One entry in starter/writing-guard/rules.json. See docs/adr/0004 for why error-level rules are implemented here rather than through textlint/Vale.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "lang", "applies", "severity", "basis", "detector", "message", "links"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+    "lang": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "enum": ["ja", "en"] }
+    },
+    "applies": {
+      "description": "Which surface(s) this rule scans.",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "enum": ["markdown", "commit", "pr"] }
+    },
+    "severity": {
+      "description": "error may block (guard_mode: enforce); advisory never blocks. See guard-rules-resolve for what error requires.",
+      "enum": ["error", "advisory"]
+    },
+    "basis": {
+      "description": "Why this rule can be mechanical at all. spec: breaks rendering/parsing per a named specification. mechanical: true regardless of context. judgment: needs reader-context judgment -- must be advisory.",
+      "enum": ["spec", "mechanical", "judgment"]
+    },
+    "detector": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind"],
+      "properties": {
+        "kind": { "enum": ["regex", "builtin", "density"] },
+        "pattern": { "type": "string" },
+        "flags": { "type": "string" },
+        "name": { "type": "string" },
+        "per": { "type": "integer", "minimum": 1 },
+        "threshold": { "type": "number" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "kind": { "const": "regex" } }, "required": ["kind"] },
+          "then": { "required": ["pattern"], "properties": { "pattern": { "type": "string" } } }
+        },
+        {
+          "if": { "properties": { "kind": { "const": "builtin" } }, "required": ["kind"] },
+          "then": { "required": ["name"], "properties": { "name": { "type": "string" } } }
+        },
+        {
+          "if": { "properties": { "kind": { "const": "density" } }, "required": ["kind"] },
+          "then": {
+            "required": ["pattern", "per", "threshold"],
+            "properties": {
+              "pattern": { "type": "string" },
+              "per": { "type": "integer" },
+              "threshold": { "type": "number" }
+            }
+          }
+        }
+      ]
+    },
+    "message": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ja", "en"],
+      "properties": {
+        "ja": { "type": "string", "minLength": 1 },
+        "en": { "type": "string", "minLength": 1 }
+      }
+    },
+    "links": {
+      "description": "antipatterns/NNNN this rule is derived from. Required so guard-rules-resolve can check severity==error is only used on a harmful (not signal_only) antipattern.",
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "pattern": "^antipatterns/\\d{4}$" }
+    }
+  }
+}

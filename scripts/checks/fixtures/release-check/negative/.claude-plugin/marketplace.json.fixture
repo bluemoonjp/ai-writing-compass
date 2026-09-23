@@ -1,0 +1,7 @@
+{
+  "name": "sample-marketplace",
+  "owner": { "name": "sample" },
+  "plugins": [
+    { "name": "sample", "source": "./plugins/sample", "description": "Sample.", "version": "0.1.0" }
+  ]
+}

@@ -1,0 +1,12 @@
+[
+  {
+    "id": "sample-rule",
+    "lang": ["ja", "en"],
+    "applies": ["markdown"],
+    "severity": "error",
+    "basis": "mechanical",
+    "detector": { "kind": "regex", "pattern": "badword" },
+    "message": { "ja": "サンプル。", "en": "Sample." },
+    "links": ["antipatterns/0001"]
+  }
+]

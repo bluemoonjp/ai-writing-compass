@@ -1,0 +1,8 @@
+---
+name: nm
+description: Sample near-miss case.
+tags: [sample-skill, near-miss]
+runs: 1
+---
+
+Sample unrelated request text.

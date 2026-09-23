@@ -1,0 +1,28 @@
+---
+id: "0001"
+title:
+  ja: "サンプル"
+  en: "Sample"
+status: active
+scope: principle
+reader_tasks: [decide]
+genres: ["any"]
+lang: [ja, en]
+rule:
+  ja: "サンプル規則。"
+  en: "Sample rule."
+body_lang: ja
+license: CC-BY-4.0
+sources:
+  - url: https://example.com/blog
+    evidence_strength: anecdotal
+    supports: rule
+    confidence: verified
+    verified_on: "2026-09-23"
+    summary: "Anecdotal only, not strong enough for an active principle."
+    quote: "Some blog post text."
+---
+
+## 理由
+
+サンプル。

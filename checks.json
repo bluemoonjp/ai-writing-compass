@@ -1,0 +1,202 @@
+{
+  "checks": [
+    {
+      "id": "no-line-refs",
+      "script": "scripts/checks/no-line-refs.mjs",
+      "blocking": true,
+      "fast": true,
+      "fixture": true,
+      "protects": "Markdown and template files must not reference a specific line number, since the reference silently drifts out of sync the moment either file is edited.",
+      "enforces": []
+    },
+    {
+      "id": "forbidden-patterns",
+      "script": "scripts/checks/forbidden-patterns.mjs",
+      "blocking": true,
+      "fast": true,
+      "fixture": true,
+      "protects": "Repository text and commit messages in the PR range must not contain filesystem paths, email addresses, or maintainer-private strings, since a public repository cannot redact history after the fact.",
+      "enforces": []
+    },
+    {
+      "id": "adr-check",
+      "script": "scripts/checks/adr-check.mjs",
+      "blocking": true,
+      "fast": true,
+      "fixture": true,
+      "protects": "Each ADR file must follow the docs/adr/NNNN-slug.md naming scheme, declare one of the four valid Status values, declare a Date: line formatted YYYY-MM-DD, and reference other ADRs by ID only, since a broken, undated, or ambiguous decision record cannot be trusted the next time it is read.",
+      "enforces": []
+    },
+    {
+      "id": "frontmatter-schema",
+      "script": "scripts/checks/frontmatter-schema.mjs",
+      "blocking": true,
+      "fast": true,
+      "fixture": true,
+      "protects": "Every practice and antipattern file's frontmatter must validate against its JSON Schema (including evidence_strength, reader_tasks, and genres), its id must match its file name, and its body may only use the fixed bilingual H2 heading set for its kind and body_lang, since ungoverned metadata is what lets a single unsupported claim, a mislabeled evidence strength, or an uncited quote pass as settled guidance.",
+      "enforces": []
+    },
+    {
+      "id": "self-check-resolves",
+      "script": "scripts/checks/self-check-resolves.mjs",
+      "blocking": true,
+      "fast": true,
+      "fixture": true,
+      "protects": "Every active practice and antipattern must be named in some check's `enforces` (as practices/NNNN or antipatterns/NNNN) or in scripts/checks/data/not_applicable.json with a reason, since a rule nothing checks and nobody has explicitly exempted is a rule that silently stops being followed.",
+      "enforces": []
+    },
+    {
+      "id": "no-history-words",
+      "script": "scripts/checks/no-history-words.mjs",
+      "blocking": true,
+      "fast": true,
+      "fixture": true,
+      "protects": "practices/, templates/, core/, and plugin SKILL.md files must not narrate this repository's own history (used to / 以前は / かつては) or present two conflicting canonical answers outside a practice's Conflicting guidance section, since a deliverable file is read by an agent working on another project with no access to this repository's history and needs exactly one answer.",
+      "enforces": []
+    },
+    {
+      "id": "no-addendum-sections",
+      "script": "scripts/checks/no-addendum-sections.mjs",
+      "blocking": true,
+      "fast": true,
+      "fixture": true,
+      "protects": "practices/, antipatterns/, templates/, core/, plugin SKILL.md, AGENTS.md, CLAUDE.md, and README.md must not grow an Addendum/Updates/Changelog/追記/更新履歴 section, since that pattern is exactly how a file silently outgrows its own original purpose.",
+      "enforces": []
+    },
+    {
+      "id": "links-one-way",
+      "script": "scripts/checks/links-one-way.mjs",
+      "blocking": true,
+      "fast": true,
+      "fixture": true,
+      "protects": "A practices/ file must not link to antipatterns/, since layer A's practices are the deliverable read by an agent under time pressure and an antipattern is documentation for a maintainer deciding what to avoid, not something that belongs in the middle of an instruction an agent is following.",
+      "enforces": []
+    },
+    {
+      "id": "readme-sections-paired",
+      "script": "scripts/checks/readme-sections-paired.mjs",
+      "blocking": true,
+      "fast": true,
+      "fixture": true,
+      "protects": "README.md's 日本語 and English sections must have the same number of H3 subsections, since the two are meant to say the same thing in two languages and a silent count mismatch is the cheapest signal that one language was edited without the other.",
+      "enforces": []
+    },
+    {
+      "id": "doc-check-ids-resolve",
+      "script": "scripts/checks/doc-check-ids-resolve.mjs",
+      "blocking": true,
+      "fast": true,
+      "fixture": true,
+      "protects": "Every `(ci: <id>)` annotation in AGENTS.md and every check-id table row in docs/maintain/authoring.md must name a check that actually exists in checks.json, since a stale reference to a renamed or removed check silently stops meaning anything.",
+      "enforces": []
+    },
+    {
+      "id": "instruction-limits",
+      "script": "scripts/checks/instruction-limits.mjs",
+      "blocking": true,
+      "fast": true,
+      "fixture": true,
+      "protects": "AGENTS.md must stay at or under 40 lines and CLAUDE.md must stay at or under 10 lines with `@AGENTS.md` as its first line, since this repository's own always-loaded instructions must themselves stay minimal, the same discipline docs/adr/0002 and docs/adr/0003 hold core/*.md to (dogfooding; docs/adr/0001).",
+      "enforces": []
+    },
+    {
+      "id": "layer-b-no-a-content",
+      "script": "scripts/checks/layer-b-no-a-content.mjs",
+      "blocking": true,
+      "fast": true,
+      "fixture": true,
+      "protects": "AGENTS.md, CLAUDE.md, and docs/maintain/ must not restate a practice or antipattern's id or bilingual title, since layer B enforces layer A only by reference, never by repetition (docs/adr/0001). This is a coarse, mechanically-detectable proxy for the boundary, not a complete check of it.",
+      "enforces": []
+    },
+    {
+      "id": "no-live-instruction-files",
+      "script": "scripts/checks/no-live-instruction-files.mjs",
+      "blocking": true,
+      "fast": true,
+      "fixture": true,
+      "protects": "Only the fixed allowlist of paths may use a filename some agent tool discovers as a live instruction file (CLAUDE.md, AGENTS.md, SKILL.md, .cursorrules, and directories such as .claude/), since a stray copy elsewhere in the tree would silently start being read as real instructions by whichever agent finds it.",
+      "enforces": []
+    },
+    {
+      "id": "generated-fresh",
+      "script": "scripts/checks/generated-fresh.mjs",
+      "blocking": true,
+      "fast": true,
+      "fixture": true,
+      "protects": "docs/maintain/authoring.md's generated check table, practices/index.md, antipatterns/index.md, README.md's generated blocks, and core/core.ja.md / core/core.en.md must all match what `pnpm gen` produces, since a hand-edited or stale generated file silently drifts from the source content it claims to summarize.",
+      "enforces": []
+    },
+    {
+      "id": "core-budget",
+      "script": "scripts/checks/core-budget.mjs",
+      "blocking": true,
+      "fast": true,
+      "fixture": true,
+      "protects": "core/core.ja.md and core/core.en.md must each stay at or under 25 rules, 60 lines, and 6,000 characters, since a longer always-loaded core is exactly the failure mode this repository exists to avoid in every other project (docs/adr/0002, docs/adr/0003).",
+      "enforces": []
+    },
+    {
+      "id": "guard-rules-resolve",
+      "script": "scripts/checks/guard-rules-resolve.mjs",
+      "blocking": true,
+      "fast": true,
+      "fixture": true,
+      "protects": "Every starter/writing-guard/rules.json entry must validate against schemas/guard-rule.schema.json, and a severity: error entry's basis must not be \"judgment\" and every antipattern it links to must be classification: \"harmful\" (never \"signal_only\"), since blocking a writer on a pattern that is merely a detection signal -- or on a rule nobody re-verified as causing reader harm -- is the exact failure mode docs/adr/0004 exists to prevent.",
+      "enforces": []
+    },
+    {
+      "id": "prose-guard",
+      "script": "scripts/checks/prose-guard.mjs",
+      "blocking": true,
+      "fast": true,
+      "fixture": true,
+      "protects": "This repository's own tracked Markdown (outside fixtures/eval materials) must trigger no severity: error starter/writing-guard rule, since a writing-style repository that violates its own error-level rules has nothing to say to anyone else (dogfooding; see docs/adr/0004).",
+      "enforces": []
+    },
+    {
+      "id": "prose-guard-advisory",
+      "script": "scripts/checks/prose-guard-advisory.mjs",
+      "blocking": false,
+      "fast": true,
+      "fixture": false,
+      "protects": "Reports this repository's own tracked Markdown against starter/writing-guard's severity: advisory rules, the same suggestions the plugin's hook would surface on a file a writer just edited, without ever failing CI on a rule that needs a reader's judgment.",
+      "enforces": []
+    },
+    {
+      "id": "freshness-report",
+      "script": "scripts/checks/freshness-report.mjs",
+      "blocking": false,
+      "fast": true,
+      "fixture": false,
+      "protects": "Every active practice and antipattern's tracked date (observed_on for a model_specific antipattern, otherwise the oldest sources[].verified_on) is checked against a 180-day threshold and reported, since a citation nobody has revisited in six months is a candidate for the next review, even without this repository's siblings' weekly patrol (see ROADMAP.md).",
+      "enforces": []
+    },
+    {
+      "id": "skill-shape",
+      "script": "scripts/checks/skill-shape.mjs",
+      "blocking": true,
+      "fast": true,
+      "fixture": true,
+      "protects": "Every plugins/*/skills/*/SKILL.md must have frontmatter matching schemas/skill-frontmatter.schema.json with a name matching its own directory, a body under 500 lines, and relative links confined to its own references/ subdirectory, since a skill that grows past this shape stops being the thin, mostly-always-loaded file the runtime assumes it is.",
+      "enforces": []
+    },
+    {
+      "id": "release-check",
+      "script": "scripts/checks/release-check.mjs",
+      "blocking": true,
+      "fast": true,
+      "fixture": true,
+      "protects": "Every plugin a marketplace entry points at must have a plugin.json whose version matches the marketplace entry (and, when WRITING_COMPASS_RELEASE_TAG is set, the pushed tag) and must carry its own LICENSE/LICENSE-DOCS copies, since an install only ever copies the plugin directory, not the repository root.",
+      "enforces": []
+    },
+    {
+      "id": "eval-coverage",
+      "script": "scripts/checks/eval-coverage.mjs",
+      "blocking": true,
+      "fast": true,
+      "fixture": true,
+      "protects": "Every plugins/*/skills/*/SKILL.md must have, among that plugin's evals/, at least one case tagged to fire it in ja, one in en, and one near-miss case tagged not to fire it, since an untested skill boundary is exactly what lets one skill silently fire for another's request (docs/maintain/eval.md).",
+      "enforces": []
+    }
+  ]
+}

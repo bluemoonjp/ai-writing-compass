@@ -1,0 +1,3 @@
+{
+  "practices/0001": "No automated check can judge whether a document's opening paragraph actually states its conclusion, since that requires reading comprehension, not a pattern a script can match; enforcement is left to review and, longer-term, to the reader-task QA eval layer (docs/maintain/eval.md)."
+}

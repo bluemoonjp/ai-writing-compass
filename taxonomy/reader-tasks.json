@@ -1,0 +1,45 @@
+{
+  "$comment": "The primary axis practices/ and antipatterns/ are organized by: what the reader does after reading, not what genre of document they are reading. A genre (taxonomy/genres.json) is a bundle of primary_tasks plus the reading/parsing conventions that genre's readers and tools expect.",
+  "tasks": [
+    {
+      "id": "decide",
+      "name": { "ja": "判断する", "en": "Decide" },
+      "description": {
+        "ja": "示された選択肢や推奨から、どれを選ぶか・進めるかを決める。",
+        "en": "The reader chooses among options or approves/rejects a recommendation."
+      }
+    },
+    {
+      "id": "act",
+      "name": { "ja": "行動する", "en": "Act" },
+      "description": {
+        "ja": "書かれた手順や指示のとおりに、何かを実行する。",
+        "en": "The reader carries out steps or instructions as written."
+      }
+    },
+    {
+      "id": "understand",
+      "name": { "ja": "理解する", "en": "Understand" },
+      "description": {
+        "ja": "仕組み・原因・背景を、自分の言葉で説明できるようになる。",
+        "en": "The reader builds a mental model they could explain in their own words."
+      }
+    },
+    {
+      "id": "lookup",
+      "name": { "ja": "参照する", "en": "Look up" },
+      "description": {
+        "ja": "特定の値・手順・事実を、後から必要になったときに探し当てる。",
+        "en": "The reader finds a specific fact, value, or step later, on demand."
+      }
+    },
+    {
+      "id": "verify",
+      "name": { "ja": "検証する", "en": "Verify" },
+      "description": {
+        "ja": "主張が正しいか、根拠にさかのぼって確かめる。",
+        "en": "The reader traces a claim back to its evidence and confirms it."
+      }
+    }
+  ]
+}
