@@ -1,0 +1,16 @@
+{
+  "rules": {
+    "preset-ja-technical-writing": {
+      "sentence-length": false,
+      "max-ten": false,
+      "no-mix-dearu-desumasu": true,
+      "no-doubled-joshi": true,
+      "no-doubled-conjunction": true,
+      "no-dropping-the-ra": true,
+      "no-invalid-control-character": true,
+      "no-nfd": true,
+      "no-zero-width-spaces": true
+    },
+    "@textlint-ja/ai-writing": true
+  }
+}

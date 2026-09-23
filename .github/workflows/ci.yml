@@ -44,6 +44,8 @@ jobs:
             !eval/materials/**
             !eval/reports/**
             !node_modules/**
+            !templates/textlintrc.json.template
+            !templates/vale.ini.template
 
   links:
     runs-on: ubuntu-latest

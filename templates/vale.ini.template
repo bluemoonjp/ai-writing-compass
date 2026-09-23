@@ -1,0 +1,14 @@
+# Copy to .vale.ini in your project root, then:
+#   vale sync
+#   vale <path>
+#
+# See templates/README.md for why sentence-length- and vocabulary-style
+# rules are left off by default (docs/maintain/authoring.md: no numeric
+# threshold this repository could not source).
+
+StylesPath = .vale/styles
+MinAlertLevel = suggestion
+
+[*.md]
+BasedOnStyles = Vale
+Vale.Spelling = NO

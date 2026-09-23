@@ -19,6 +19,10 @@
     "plugins/*/evals/**",
     "eval/materials/**",
     "eval/reports/**",
-    "node_modules/**"
+    "node_modules/**",
+    // Not Markdown content despite the .template extension (JSON/INI
+    // config a downstream project copies verbatim) -- see templates/README.md.
+    "templates/textlintrc.json.template",
+    "templates/vale.ini.template"
   ]
 }
