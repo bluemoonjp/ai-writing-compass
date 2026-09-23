@@ -12,7 +12,7 @@ AI(コーディングエージェント、チャットAI)が書く文章のた�
 
 ### Status
 
-v0.1 進行中。出典の再検証(Phase 0)と内容の追加を続けています。詳細は [ROADMAP.md](ROADMAP.md) を参照してください。
+v0.1 進行中。Claude Code プラグイン(`writing-compose` / `writing-review`)と常時ロードの核が動作し、評価の3層(ガード・発火・読み手課題QA)を実測済みです。出典の再検証(Phase 0)と内容の追加を続けています。詳細は [ROADMAP.md](ROADMAP.md) を参照してください。
 
 <!-- gen:start:how-to-use-ja -->
 _`practices/*.md` と `antipatterns/*.md` から `pnpm gen` で生成。このブロックは編集しないこと。_ **10** 件の active な practice と **2** 件の active な antipattern を [`practices/index.md`](practices/index.md) / [`antipatterns/index.md`](antipatterns/index.md) に索引化(ライセンス: [CC BY 4.0](LICENSE-DOCS))。
@@ -54,7 +54,7 @@ The primary reader is an AI agent writing a chat reply, commit message, PR descr
 
 ### Status
 
-v0.1 in progress. Source re-verification (Phase 0) and content are still being added. See [ROADMAP.md](ROADMAP.md).
+v0.1 in progress. The Claude Code plugin (`writing-compose` / `writing-review`) and the always-loaded core work end to end, and all three of the guard, firing, and reader-task-QA eval layers have real measured results. Source re-verification (Phase 0) and content are still being added. See [ROADMAP.md](ROADMAP.md).
 
 <!-- gen:start:how-to-use-en -->
 _Generated from `practices/*.md` and `antipatterns/*.md` by `pnpm gen`; do not edit this block._ **10** active practices and **2** active antipatterns are indexed in [`practices/index.md`](practices/index.md) and [`antipatterns/index.md`](antipatterns/index.md), licensed under [CC BY 4.0](LICENSE-DOCS).
