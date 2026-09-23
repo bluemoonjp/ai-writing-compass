@@ -1,0 +1,44 @@
+[
+  {
+    "id": "q1-rollback-minutes",
+    "question": "デプロイからロールバック完了までの所要時間は何分でしたか?",
+    "answerable": true,
+    "answer_pattern": "17\\s*分|17\\s*min"
+  },
+  {
+    "id": "q2-peak-error-rate",
+    "question": "ピーク時のエラー率は何パーセントでしたか?",
+    "answerable": true,
+    "answer_pattern": "23\\.7"
+  },
+  {
+    "id": "q3-root-cause-numbers",
+    "question": "今回の原因は、接続プールの上限がいくつからいくつに変わったことですか?",
+    "answerable": true,
+    "answer_pattern": "(?=.*200)(?=.*20(?!\\d))"
+  },
+  {
+    "id": "q4-affected-users",
+    "question": "影響を受けたユーザー数はおよそ何人と見積もられていますか?",
+    "answerable": true,
+    "answer_pattern": "12[,，]?000"
+  },
+  {
+    "id": "q5-oncall-name",
+    "question": "オンコール担当者の名前は?",
+    "answerable": true,
+    "answer_pattern": "橋本"
+  },
+  {
+    "id": "q6-next-deploy-date",
+    "question": "次回のデプロイ予定日はいつですか?",
+    "answerable": false,
+    "not_stated_pattern": "記載なし|不明|分かりません|わかりません|not stated|unknown|unclear|情報がありません|言及がありません"
+  },
+  {
+    "id": "q7-affected-region",
+    "question": "影響を受けた地域はどこですか?",
+    "answerable": false,
+    "not_stated_pattern": "記載なし|不明|分かりません|わかりません|not stated|unknown|unclear|情報がありません|言及がありません"
+  }
+]

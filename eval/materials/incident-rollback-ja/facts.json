@@ -1,0 +1,15 @@
+{
+  "scenario": "incident-rollback-ja",
+  "genre": "report",
+  "lang": "ja",
+  "planted_facts": {
+    "service_name": "purple-falcon",
+    "error_rate_before": "0.4%",
+    "error_rate_peak": "23.7%",
+    "deploy_time": "2026-09-21 14:02 UTC",
+    "rollback_time": "2026-09-21 14:19 UTC",
+    "root_cause": "接続プールの上限が新デプロイで 200 から 20 に誤って縮小された",
+    "affected_users_estimate": "約 12,000 人",
+    "on_call_engineer": "橋本"
+  }
+}
