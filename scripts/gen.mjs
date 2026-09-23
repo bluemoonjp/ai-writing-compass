@@ -162,10 +162,37 @@ export function renderReadmeBlockJa(practiceCount, antipatternCount) {
 }
 
 // Pure: renders one language's core/*.md from the active, core-tagged
-// principle practices, grouped by CORE_SECTIONS order then practice.core.order.
-// See docs/adr/0003 for why this file is generated rather than hand-edited.
-export function renderCore(lang, practices) {
-  const coreItems = practices.filter((p) => p.core && p.scope === 'principle')
+// Genre ids whose taxonomy/genres.json entry has delivery: "core" -- a
+// commit-message/pr-description/chat-answer convention needs to reach the
+// writer even when no skill is invoked (docs/adr/0002), so renderCore
+// (below) includes a convention practice in the core when every genre it
+// names is one of these. Reads from a files array (parseFrontmatteredFile's
+// disk-free style) so a fixture can supply its own taxonomy/genres.json --
+// same reason parsePracticeDetails takes `files` rather than reading
+// practices/ from disk itself.
+export function parseCoreDeliveryGenres(files) {
+  const file = files.find((f) => f.path === 'taxonomy/genres.json')
+  if (!file) return new Set()
+  let data
+  try {
+    data = JSON.parse(file.text)
+  } catch {
+    return new Set()
+  }
+  return new Set((data.genres ?? []).filter((g) => g.delivery === 'core').map((g) => g.id))
+}
+
+// principle practices, plus a convention practice whose genres are *all*
+// core-delivery genres (parseCoreDeliveryGenres, above). Grouped by
+// CORE_SECTIONS order then practice.core.order. See docs/adr/0003 for why
+// this file is generated rather than hand-edited.
+export function renderCore(lang, practices, coreDeliverySet = new Set()) {
+  const coreItems = practices.filter((p) => {
+    if (!p.core) return false
+    if (p.scope === 'principle') return true
+    if (p.scope === 'convention') return (p.genres ?? []).every((g) => coreDeliverySet.has(g))
+    return false
+  })
   const bySection = new Map()
   for (const item of coreItems) {
     const list = bySection.get(item.core.section) ?? []
@@ -281,9 +308,12 @@ function main() {
   )
   writeFileSync(readmeAbs, nextReadme)
 
+  const genresAbs = path.join(root, 'taxonomy', 'genres.json')
+  const coreDeliverySet = parseCoreDeliveryGenres([{ path: 'taxonomy/genres.json', text: readFileSync(genresAbs, 'utf8') }])
+
   mkdirSync(path.join(root, 'core'), { recursive: true })
-  writeFileSync(path.join(root, 'core', 'core.ja.md'), renderCore('ja', practices).replace(/\r\n/g, '\n') + '\n')
-  writeFileSync(path.join(root, 'core', 'core.en.md'), renderCore('en', practices).replace(/\r\n/g, '\n') + '\n')
+  writeFileSync(path.join(root, 'core', 'core.ja.md'), renderCore('ja', practices, coreDeliverySet).replace(/\r\n/g, '\n') + '\n')
+  writeFileSync(path.join(root, 'core', 'core.en.md'), renderCore('en', practices, coreDeliverySet).replace(/\r\n/g, '\n') + '\n')
 
   syncCoreIntoPlugin(root)
   syncWritingGuardIntoPlugin(root)

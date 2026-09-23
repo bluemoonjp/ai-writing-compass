@@ -25,4 +25,9 @@ Applies to every piece of text written here: chat replies, commit messages, PR d
 - In Japanese, default to です・ます, express respect concisely, and do not stack honorifics.
 - In Japanese, when a sentence would list three or more parallel items, use a bulleted list instead.
 
+## By genre
+
+- A commit subject or PR title names the specific subject and what changed about it -- never a vague "about X" placeholder.
+- If the purpose, request, or change is fully stated in the main content, do not add a preamble or closing.
+
 <!-- /ai-writing-compass:core -->

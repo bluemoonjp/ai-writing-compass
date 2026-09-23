@@ -14,5 +14,7 @@ Generated from `practices/*.md` by `pnpm gen`; do not edit.
 | 0008 | リンクテキストは行き先を表す語にする | Link text names the destination | verify, lookup | any | standard | 2026-09-23 |
 | 0009 | 不確かさは該当箇所に一人称で具体的に書く | State uncertainty at the specific claim, in first-person terms | decide, verify | any | empirical | 2026-09-23 |
 | 0010 | 具体的な語を使う | Prefer the concrete word to the abstraction | understand, act | any | standard | 2026-09-23 |
+| 0011 | 件名・タイトルは具体的な語で書く | Make the subject line or title specific | decide, lookup | commit-message, pr-description | standard | 2026-09-23 |
+| 0012 | 主文だけで足りるなら前置きや締めは書かない | Skip the preamble or closing when the main content alone is enough | decide, act | commit-message, pr-description, chat-answer | standard | 2026-09-23 |
 
 This table's content is drawn from `practices/`, licensed under [CC BY 4.0](../LICENSE-DOCS).

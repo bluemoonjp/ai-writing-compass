@@ -1,6 +1,7 @@
 import {
   applyBlock,
   parseAntipatternDetails,
+  parseCoreDeliveryGenres,
   parsePracticeDetails,
   renderAuthoringTable,
   renderContentIndex,
@@ -103,11 +104,12 @@ export function run({ files }) {
     }
   }
 
+  const coreDeliverySet = parseCoreDeliveryGenres(files)
   for (const [lang, corePath] of [['ja', CORE_JA_PATH], ['en', CORE_EN_PATH]]) {
     const coreFile = files.find((f) => f.path === corePath)
     if (!coreFile) continue
     const actual = normalize(coreFile.text)
-    const expected = normalize(renderCore(lang, practices)) + '\n'
+    const expected = normalize(renderCore(lang, practices, coreDeliverySet)) + '\n'
     if (actual !== expected) {
       findings.push({ path: corePath, line: 1, ruleId: `${RULE_ID}:core-stale` })
       notices.push(`${RULE_ID}: ${corePath} is stale — run: pnpm gen`)
