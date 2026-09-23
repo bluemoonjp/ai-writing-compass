@@ -15,7 +15,7 @@ AI(コーディングエージェント、チャットAI)が書く文章のた�
 v0.1 進行中。出典の再検証(Phase 0)と内容の追加を続けています。詳細は [ROADMAP.md](ROADMAP.md) を参照してください。
 
 <!-- gen:start:how-to-use-ja -->
-_`practices/*.md` と `antipatterns/*.md` から `pnpm gen` で生成。このブロックは編集しないこと。_ **1** 件の active な practice と **0** 件の active な antipattern を [`practices/index.md`](practices/index.md) / [`antipatterns/index.md`](antipatterns/index.md) に索引化(ライセンス: [CC BY 4.0](LICENSE-DOCS))。
+_`practices/*.md` と `antipatterns/*.md` から `pnpm gen` で生成。このブロックは編集しないこと。_ **7** 件の active な practice と **0** 件の active な antipattern を [`practices/index.md`](practices/index.md) / [`antipatterns/index.md`](antipatterns/index.md) に索引化(ライセンス: [CC BY 4.0](LICENSE-DOCS))。
 <!-- gen:end:how-to-use-ja -->
 
 ### How to use
@@ -57,7 +57,7 @@ The primary reader is an AI agent writing a chat reply, commit message, PR descr
 v0.1 in progress. Source re-verification (Phase 0) and content are still being added. See [ROADMAP.md](ROADMAP.md).
 
 <!-- gen:start:how-to-use-en -->
-_Generated from `practices/*.md` and `antipatterns/*.md` by `pnpm gen`; do not edit this block._ **1** active practices and **0** active antipatterns are indexed in [`practices/index.md`](practices/index.md) and [`antipatterns/index.md`](antipatterns/index.md), licensed under [CC BY 4.0](LICENSE-DOCS).
+_Generated from `practices/*.md` and `antipatterns/*.md` by `pnpm gen`; do not edit this block._ **7** active practices and **0** active antipatterns are indexed in [`practices/index.md`](practices/index.md) and [`antipatterns/index.md`](antipatterns/index.md), licensed under [CC BY 4.0](LICENSE-DOCS).
 <!-- gen:end:how-to-use-en -->
 
 ### How to use

@@ -1,3 +1,9 @@
 {
-  "practices/0001": "No automated check can judge whether a document's opening paragraph actually states its conclusion, since that requires reading comprehension, not a pattern a script can match; enforcement is left to review and, longer-term, to the reader-task QA eval layer (docs/maintain/eval.md)."
+  "practices/0001": "No automated check can judge whether a document's opening paragraph actually states its conclusion, since that requires reading comprehension, not a pattern a script can match; enforcement is left to review and, longer-term, to the reader-task QA eval layer (docs/maintain/eval.md).",
+  "practices/0002": "No automated check can judge whether a specific piece of information has low enough need to cut, since that requires knowing what the reader's task actually requires; enforcement is left to review.",
+  "practices/0003": "No automated check can reliably count 'points' in a Japanese sentence (that needs real parsing, not a regex); enforcement is left to review.",
+  "practices/0004": "No automated check can verify a subject-predicate relationship is traceable across a Japanese sentence without real parsing; enforcement is left to review.",
+  "practices/0005": "No automated check can distinguish double negation from other negated constructions without real parsing; enforcement is left to review.",
+  "practices/0006": "No automated check can judge whether an honorific is 'excessive' versus appropriate for context; enforcement is left to review.",
+  "practices/0007": "No automated check can detect, inside ordinary prose, that a sentence is enumerating three or more parallel items versus something else entirely; enforcement is left to review."
 }
