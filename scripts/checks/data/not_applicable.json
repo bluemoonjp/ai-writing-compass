@@ -5,5 +5,8 @@
   "practices/0004": "No automated check can verify a subject-predicate relationship is traceable across a Japanese sentence without real parsing; enforcement is left to review.",
   "practices/0005": "No automated check can distinguish double negation from other negated constructions without real parsing; enforcement is left to review.",
   "practices/0006": "No automated check can judge whether an honorific is 'excessive' versus appropriate for context; enforcement is left to review.",
-  "practices/0007": "No automated check can detect, inside ordinary prose, that a sentence is enumerating three or more parallel items versus something else entirely; enforcement is left to review."
+  "practices/0007": "No automated check can detect, inside ordinary prose, that a sentence is enumerating three or more parallel items versus something else entirely; enforcement is left to review.",
+  "practices/0008": "No automated check can judge whether a link's own text names its destination without understanding what the destination actually is; enforcement is left to review. A narrower, purely mechanical case (a bare URL directly against full-width punctuation) is a separate, not-yet-written guard rule, not this practice.",
+  "practices/0009": "No automated check can judge whether an uncertain claim was actually marked at the right place with the right reason, since that requires knowing which claims are uncertain; enforcement is left to review.",
+  "practices/0010": "No automated check can judge whether a given word is 'the abstraction' for some more concrete alternative without understanding the sentence's meaning; enforcement is left to review."
 }
