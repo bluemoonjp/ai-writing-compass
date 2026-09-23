@@ -5,6 +5,16 @@ const B_LAYER_EXACT = new Set(['AGENTS.md', 'CLAUDE.md'])
 const B_LAYER_PREFIX = 'docs/maintain/'
 const CONTENT_ID_PATTERN = /\b(practices?|antipatterns?)\/\d{4}\b|\b(practice|antipattern):\s*\d{4}\b/i
 const FRONTMATTER = /^---\n([\s\S]*?)\n---\n?/
+// docs/maintain/authoring.md's generated check table is checks.json's
+// `enforces` field rendered as a table column -- ADR-0001 names `enforces`
+// as the one sanctioned way layer B references layer A content by id, so a
+// content id inside this specific generated block is not a violation. The
+// content-id pattern still applies to any hand-written prose in this file,
+// and the content-title check is unaffected (a title should never appear
+// here, generated or not).
+const GENERATED_BLOCK_PATH = 'docs/maintain/authoring.md'
+const GENERATED_BLOCK_START = '<!-- gen:start -->'
+const GENERATED_BLOCK_END = '<!-- gen:end -->'
 
 function isBLayer(filePath) {
   return B_LAYER_EXACT.has(filePath) || filePath.startsWith(B_LAYER_PREFIX)
@@ -39,9 +49,19 @@ export function run({ files }) {
 
   for (const file of bLayerFiles) {
     const lines = file.text.split('\n')
+    const inGeneratedBlock =
+      file.path === GENERATED_BLOCK_PATH
+        ? lines.map((_, i) => {
+            const startIdx = file.text.indexOf(GENERATED_BLOCK_START)
+            const endIdx = file.text.indexOf(GENERATED_BLOCK_END)
+            if (startIdx === -1 || endIdx === -1) return false
+            const offset = lines.slice(0, i).reduce((n, l) => n + l.length + 1, 0)
+            return offset > startIdx && offset < endIdx
+          })
+        : lines.map(() => false)
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i]
-      if (CONTENT_ID_PATTERN.test(line)) {
+      if (CONTENT_ID_PATTERN.test(line) && !inGeneratedBlock[i]) {
         findings.push({ path: file.path, line: i + 1, ruleId: `${RULE_ID}:content-id` })
       }
       if (contentTitles.some((title) => line.includes(title))) {

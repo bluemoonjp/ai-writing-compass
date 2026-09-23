@@ -151,7 +151,7 @@
       "fast": true,
       "fixture": true,
       "protects": "This repository's own tracked Markdown (outside fixtures/eval materials) must trigger no severity: error starter/writing-guard rule, since a writing-style repository that violates its own error-level rules has nothing to say to anyone else (dogfooding; see docs/adr/0004).",
-      "enforces": []
+      "enforces": ["antipatterns/0001", "antipatterns/0002"]
     },
     {
       "id": "prose-guard-advisory",

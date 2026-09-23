@@ -1,1 +1,36 @@
-[]
+[
+  {
+    "id": "bare-url-fullwidth",
+    "lang": ["ja"],
+    "applies": ["markdown"],
+    "severity": "error",
+    "basis": "mechanical",
+    "detector": {
+      "kind": "regex",
+      "pattern": "https?:\\/\\/[^\\s\\)\\]<>]*[\\u3000-\\u303F\\u3040-\\u30FF\\u4E00-\\u9FFF\\uFF00-\\uFFEF]",
+      "flags": "g"
+    },
+    "message": {
+      "ja": "むき出しのURLの直後に全角文字が続いています。GFMの自動リンクがそれを巻き込みます。[テキスト](URL) の形に直してください。",
+      "en": "A bare URL is directly followed by a full-width character; GFM's autolink extension will swallow it. Use [text](URL) instead."
+    },
+    "links": ["antipatterns/0001"]
+  },
+  {
+    "id": "vague-link-text",
+    "lang": ["ja", "en"],
+    "applies": ["markdown"],
+    "severity": "error",
+    "basis": "mechanical",
+    "detector": {
+      "kind": "regex",
+      "pattern": "\\[(click here|here|this link|こちら|ここ)\\]\\(",
+      "flags": "gi"
+    },
+    "message": {
+      "ja": "「こちら」「click here」などのリンクテキストは行き先を表しません。行き先を表す語に置き換えてください。",
+      "en": "\"click here\"/\"here\"/\"こちら\" as link text does not name the destination. Replace it with text that does."
+    },
+    "links": ["antipatterns/0002"]
+  }
+]

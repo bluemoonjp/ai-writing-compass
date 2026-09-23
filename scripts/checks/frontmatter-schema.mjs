@@ -26,12 +26,19 @@ const PRACTICE_H2 = {
   ja: new Set(['理由', '適用範囲', '対立する指針', '例']),
   en: new Set(['Why', 'When it applies', 'Conflicting guidance', 'Examples']),
 }
+// "例"/"Examples" is optional and allowed in either variant, so it is kept
+// out of exclusiveSymptom/exclusiveObsolete (the sets that decide which
+// variant a file is using) but still added to the final allowed set below.
 const ANTIPATTERN_H2 = {
   ja: {
+    exclusiveSymptom: new Set(['症状', '原因', '対処']),
+    exclusiveObsolete: new Set(['以前の書き方', 'なぜそれでよかったか', '何が変わったか', '今すべきこと']),
     symptomSet: new Set(['症状', '原因', '対処', '例']),
     obsoleteSet: new Set(['以前の書き方', 'なぜそれでよかったか', '何が変わったか', '今すべきこと', '例']),
   },
   en: {
+    exclusiveSymptom: new Set(['Symptom', 'Cause', 'Remedy']),
+    exclusiveObsolete: new Set(['What we did', 'Why it worked', 'What changed', 'What to do now']),
     symptomSet: new Set(['Symptom', 'Cause', 'Remedy', 'Examples']),
     obsoleteSet: new Set(['What we did', 'Why it worked', 'What changed', 'What to do now', 'Examples']),
   },
@@ -102,10 +109,10 @@ export function run({ files }) {
         }
       }
     } else {
-      const { symptomSet, obsoleteSet } = ANTIPATTERN_H2[bodyLang]
+      const { exclusiveSymptom, exclusiveObsolete, symptomSet, obsoleteSet } = ANTIPATTERN_H2[bodyLang]
       const headingSet = new Set(headings)
-      const usesSymptom = headings.some((h) => symptomSet.has(h))
-      const usesObsolete = headings.some((h) => obsoleteSet.has(h))
+      const usesSymptom = headings.some((h) => exclusiveSymptom.has(h))
+      const usesObsolete = headings.some((h) => exclusiveObsolete.has(h))
       if (usesSymptom && usesObsolete) {
         findings.push({ path: file.path, line: 1, ruleId: `${RULE_ID}:mixed-heading-sets` })
       } else {

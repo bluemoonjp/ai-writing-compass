@@ -96,8 +96,21 @@ function maskAutolinks(text) {
   return text.replace(/<[a-zA-Z][a-zA-Z0-9+.-]*:[^\s<>]*>/g, (m) => m.replace(/[^\n]/g, ' '))
 }
 
+// YAML frontmatter (id, sources[].url, sources[].quote, ...) is structured
+// data, not prose the guard should hold to the same rules as running text --
+// a quote field legitimately reproducing a broken URL as evidence (see
+// antipatterns/0001) is not itself a new instance of that antipattern.
+const FRONTMATTER = /^---\n[\s\S]*?\n---\n?/
+
+function maskFrontmatter(text) {
+  const match = FRONTMATTER.exec(text)
+  if (!match) return text
+  return maskSpan(text, 0, match[0].length)
+}
+
 export function maskProse(text) {
-  let masked = maskFencedBlocks(text)
+  let masked = maskFrontmatter(text)
+  masked = maskFencedBlocks(masked)
   masked = maskInlineCode(masked)
   masked = maskHtmlComments(masked)
   masked = maskAutolinks(masked)

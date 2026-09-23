@@ -46,5 +46,5 @@ Any document with links: chat replies, README files, reports, and documentation.
 
 ## Examples
 
-- Bad: "See [here](https://example.com/spec) for details."
-- Good: "See the [W3C WCAG 2.2 specification](https://example.com/spec) for details."
+- Bad: `See [here](https://example.com/spec) for details.`
+- Good: `See the [W3C WCAG 2.2 specification](https://example.com/spec) for details.`

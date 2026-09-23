@@ -11,6 +11,13 @@ const TRAILER_ALLOWLIST = JSON.parse(
 )
 
 const OWN_DATA_PREFIX = 'scripts/checks/data/'
+// starter/writing-guard/rules.json legitimately stores JS regex source
+// strings. A run of several JSON-escaped Unicode code point escapes in a
+// row can coincidentally satisfy the unc-path pattern below. Real
+// private-information leakage in a curated, reviewed rules file is not a
+// realistic risk the way it is in free-form prose, so it is excluded the
+// same way scripts/checks/data/ is.
+const EXCLUDED_EXACT_PATHS = new Set(['starter/writing-guard/rules.json'])
 const TRAILER_LINE = /^[A-Za-z-]+: .*<([^>]+)>$/
 const RULE_ID = 'forbidden-patterns'
 
@@ -40,6 +47,7 @@ function scanFiles(files, patterns) {
   const findings = []
   for (const file of files) {
     if (file.path.startsWith(OWN_DATA_PREFIX)) continue
+    if (EXCLUDED_EXACT_PATHS.has(file.path)) continue
     scanLines(file.text.split('\n'), patterns, findings, file.path)
   }
   return findings
