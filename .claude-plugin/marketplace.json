@@ -1,0 +1,12 @@
+{
+  "name": "ai-writing-compass",
+  "owner": { "name": "bluemoonjp" },
+  "plugins": [
+    {
+      "name": "writing-compass",
+      "source": "./plugins/writing-compass",
+      "description": "Sourced, evidence-graded writing guidance for AI, injected as an always-loaded core plus writing-compose/writing-review skills.",
+      "version": "0.1.0"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["${CLAUDE_PLUGIN_ROOT}/hooks/hook-session.mjs"]
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash|PowerShell",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Bash(git commit *)",
+            "command": "node",
+            "args": ["${CLAUDE_PLUGIN_ROOT}/hooks/hook-pre-tool.mjs"]
+          },
+          {
+            "type": "command",
+            "if": "PowerShell(git commit *)",
+            "command": "node",
+            "args": ["${CLAUDE_PLUGIN_ROOT}/hooks/hook-pre-tool.mjs"]
+          },
+          {
+            "type": "command",
+            "if": "Bash(gh pr create *)",
+            "command": "node",
+            "args": ["${CLAUDE_PLUGIN_ROOT}/hooks/hook-pre-tool.mjs"]
+          },
+          {
+            "type": "command",
+            "if": "PowerShell(gh pr create *)",
+            "command": "node",
+            "args": ["${CLAUDE_PLUGIN_ROOT}/hooks/hook-pre-tool.mjs"]
+          },
+          {
+            "type": "command",
+            "if": "Bash(gh pr edit *)",
+            "command": "node",
+            "args": ["${CLAUDE_PLUGIN_ROOT}/hooks/hook-pre-tool.mjs"]
+          },
+          {
+            "type": "command",
+            "if": "PowerShell(gh pr edit *)",
+            "command": "node",
+            "args": ["${CLAUDE_PLUGIN_ROOT}/hooks/hook-pre-tool.mjs"]
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["${CLAUDE_PLUGIN_ROOT}/hooks/hook-post-edit.mjs"]
+          }
+        ]
+      }
+    ]
+  }
+}

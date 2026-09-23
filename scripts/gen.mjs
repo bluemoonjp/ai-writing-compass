@@ -15,6 +15,13 @@ const FRONTMATTER = /^---\n([\s\S]*?)\n---\n?([\s\S]*)$/
 const CONTENT_FILENAME = /^(\d{4})-[a-z0-9-]+\.md$/
 const CC_BY_URL = 'https://creativecommons.org/licenses/by/4.0/'
 export const CORE_VERSION = '0.1.0'
+export const CORE_DIR = 'core'
+export const PLUGIN_CORE_DIR = 'plugins/writing-compass/core'
+export const WRITING_GUARD_SOURCE_DIR = 'starter/writing-guard'
+export const PLUGIN_WRITING_GUARD_DIR = 'plugins/writing-compass/hooks/writing-guard'
+// Runtime files only -- *.test.mjs is dev-only and adds nothing to a
+// distributed copy a hook runs directly; test-fixtures/ is dev-only too.
+export const WRITING_GUARD_FILE = /^(?!.*\.test\.mjs$).+\.(?:mjs|json)$/
 
 // The fixed order and bilingual heading text for core/*.md. A section with
 // zero active principle practices is omitted entirely -- see docs/adr/0003.
@@ -189,6 +196,61 @@ export function renderCore(lang, practices) {
   return lines.join('\n')
 }
 
+// { withFileTypes: true } + isFile() so a matching *directory* name is
+// never handed to readFileSync (WRITING_GUARD_FILE could otherwise match a
+// directory's basename and crash with EISDIR).
+function listDirFilesFromDisk(root, dir, filenamePattern) {
+  const abs = path.join(root, dir)
+  if (!existsSync(abs)) return []
+  return readdirSync(abs, { withFileTypes: true })
+    .filter((e) => e.isFile() && filenamePattern.test(e.name))
+    .map((e) => ({ name: e.name, text: readFileSync(path.join(abs, e.name), 'utf8') }))
+}
+
+// Removes any file directly inside targetDir not named in expectedNames --
+// so a starter/writing-guard/ file that is later renamed or removed does
+// not leave a stale, permanently-shipped copy behind inside the plugin.
+function pruneOrphans(targetDir, expectedNames) {
+  if (!existsSync(targetDir)) return
+  for (const entry of readdirSync(targetDir, { withFileTypes: true })) {
+    if (entry.isFile() && !expectedNames.has(entry.name)) {
+      unlinkSync(path.join(targetDir, entry.name))
+    }
+  }
+}
+
+// core/*.md is itself generated (renderCore, above); this copies that
+// already-generated output into the plugin so plugins/writing-compass/core/
+// is what the plugin's SessionStart hook actually reads at install time --
+// an install only ever copies plugins/writing-compass/, never the
+// repository root. See docs/adr/0002.
+export function syncCoreIntoPlugin(root) {
+  const targetDir = path.join(root, PLUGIN_CORE_DIR)
+  mkdirSync(targetDir, { recursive: true })
+  for (const lang of ['ja', 'en']) {
+    const name = `core.${lang}.md`
+    const sourceAbs = path.join(root, CORE_DIR, name)
+    if (!existsSync(sourceAbs)) continue
+    writeFileSync(path.join(targetDir, name), readFileSync(sourceAbs, 'utf8').replace(/\r\n/g, '\n'))
+  }
+  pruneOrphans(targetDir, new Set(['core.ja.md', 'core.en.md']))
+}
+
+// Copies starter/writing-guard/'s runtime files (not its *.test.mjs or
+// test-fixtures/) into the plugin's own hooks/writing-guard/ -- the CI
+// check (prose-guard/prose-guard-advisory) and the distributed plugin
+// share this same source, copied here the same way generateReferences
+// copies a sibling repository's starter/ tool into its skill.
+export function syncWritingGuardIntoPlugin(root) {
+  const targetDir = path.join(root, PLUGIN_WRITING_GUARD_DIR)
+  mkdirSync(targetDir, { recursive: true })
+  const entries = listDirFilesFromDisk(root, WRITING_GUARD_SOURCE_DIR, WRITING_GUARD_FILE)
+  for (const { name, text } of entries) {
+    writeFileSync(path.join(targetDir, name), text.replace(/\r\n/g, '\n'))
+  }
+  pruneOrphans(targetDir, new Set(entries.map((e) => e.name)))
+}
+
 function main() {
   const root = process.cwd()
   const checks = JSON.parse(readFileSync(path.join(root, 'checks.json'), 'utf8')).checks
@@ -222,6 +284,9 @@ function main() {
   mkdirSync(path.join(root, 'core'), { recursive: true })
   writeFileSync(path.join(root, 'core', 'core.ja.md'), renderCore('ja', practices).replace(/\r\n/g, '\n') + '\n')
   writeFileSync(path.join(root, 'core', 'core.en.md'), renderCore('en', practices).replace(/\r\n/g, '\n') + '\n')
+
+  syncCoreIntoPlugin(root)
+  syncWritingGuardIntoPlugin(root)
 }
 
 if (process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url)) {

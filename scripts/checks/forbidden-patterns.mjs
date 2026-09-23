@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { matchesAnyGlob } from '../lib/glob.mjs'
 
 const dataDir = path.join(path.dirname(fileURLToPath(import.meta.url)), 'data')
 const GENERIC_PATTERNS = JSON.parse(
@@ -11,13 +12,14 @@ const TRAILER_ALLOWLIST = JSON.parse(
 )
 
 const OWN_DATA_PREFIX = 'scripts/checks/data/'
-// starter/writing-guard/rules.json legitimately stores JS regex source
-// strings. A run of several JSON-escaped Unicode code point escapes in a
-// row can coincidentally satisfy the unc-path pattern below. Real
-// private-information leakage in a curated, reviewed rules file is not a
-// realistic risk the way it is in free-form prose, so it is excluded the
-// same way scripts/checks/data/ is.
-const EXCLUDED_EXACT_PATHS = new Set(['starter/writing-guard/rules.json'])
+// Every writing-guard/rules.json (the source under starter/, and every
+// plugin's copy under plugins/*/hooks/) legitimately stores JS regex
+// source strings. A run of several JSON-escaped Unicode code point
+// escapes in a row can coincidentally satisfy the unc-path pattern below.
+// Real private-information leakage in a curated, reviewed rules file is
+// not a realistic risk the way it is in free-form prose, so these are
+// excluded the same way scripts/checks/data/ is.
+const EXCLUDED_GLOBS = ['starter/writing-guard/rules.json', 'plugins/**/hooks/writing-guard/rules.json']
 const TRAILER_LINE = /^[A-Za-z-]+: .*<([^>]+)>$/
 const RULE_ID = 'forbidden-patterns'
 
@@ -47,7 +49,7 @@ function scanFiles(files, patterns) {
   const findings = []
   for (const file of files) {
     if (file.path.startsWith(OWN_DATA_PREFIX)) continue
-    if (EXCLUDED_EXACT_PATHS.has(file.path)) continue
+    if (matchesAnyGlob(file.path, EXCLUDED_GLOBS)) continue
     scanLines(file.text.split('\n'), patterns, findings, file.path)
   }
   return findings
