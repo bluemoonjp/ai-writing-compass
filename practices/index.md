@@ -16,5 +16,7 @@ Generated from `practices/*.md` by `pnpm gen`; do not edit.
 | 0010 | 具体的な語を使う | Prefer the concrete word to the abstraction | understand, act | any | standard | 2026-09-23 |
 | 0011 | 件名・タイトルは具体的な語で書く | Make the subject line or title specific | decide, lookup | commit-message, pr-description | standard | 2026-09-23 |
 | 0012 | 主文だけで足りるなら前置きや締めは書かない | Skip the preamble or closing when the main content alone is enough | decide, act | commit-message, pr-description, chat-answer | standard | 2026-09-23 |
+| 0013 | 見出しは内容を表す具体的な語にする | Make headings informative, not vague topic labels | lookup, understand | readme, design-doc, report | standard | 2026-09-23 |
+| 0014 | 対象外・不要なことも明示する | State what does not apply or is not needed | decide, act | readme, design-doc, report | standard | 2026-09-23 |
 
 This table's content is drawn from `practices/`, licensed under [CC BY 4.0](../LICENSE-DOCS).

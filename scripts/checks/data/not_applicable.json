@@ -10,5 +10,7 @@
   "practices/0009": "No automated check can judge whether an uncertain claim was actually marked at the right place with the right reason, since that requires knowing which claims are uncertain; enforcement is left to review.",
   "practices/0010": "No automated check can judge whether a given word is 'the abstraction' for some more concrete alternative without understanding the sentence's meaning; enforcement is left to review.",
   "practices/0011": "No automated check can judge whether a subject line's wording is actually specific to its change versus generic-sounding but content-bearing; enforcement is left to review.",
-  "practices/0012": "No automated check can judge whether a given preamble or closing sentence is actually unneeded versus carrying necessary background; enforcement is left to review."
+  "practices/0012": "No automated check can judge whether a given preamble or closing sentence is actually unneeded versus carrying necessary background; enforcement is left to review.",
+  "practices/0013": "No automated check can judge whether a heading is 'vague' versus appropriately concise without understanding the section it labels; enforcement is left to review.",
+  "practices/0014": "No automated check can detect that a document describing conditions is missing the case where none of them apply; that requires understanding the document's subject matter, not a pattern a script can match. Enforcement is left to review."
 }
